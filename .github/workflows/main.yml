@@ -26,7 +26,7 @@ jobs:
       #repo: "android_kernel_google_zuma"
 
   clanglto2:
-    uses: ./.github/workflows/clanglto.yml
+    uses: ./.github/workflows/clanglto2.yml
     secrets: inherit
     with:
       codename: "zuma"
