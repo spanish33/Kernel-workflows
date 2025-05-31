@@ -72,7 +72,6 @@ jobs:
           echo "LLVM_IAS=1" >> $GITHUB_ENV
           echo "PATH=$HOME/toolchain/bin:$PATH" >> $GITHUB_ENV
           echo "CROSS_COMPILE=aarch64-linux-gnu-" >> $GITHUB_ENV
-          echo "ARCH=arm64" >> $GITHUB_ENV
           echo "CONFIG=${{ inputs.repo }}" >> $GITHUB_ENV
         
 
@@ -187,6 +186,7 @@ jobs:
          cd "${{ env.CONFIG }}"
          make O=out ARCH=arm64 LLVM=1 LLVM_IAS=1 V=1 \
          CROSS_COMPILE=aarch64-linux-gnu- \
+         HOSTCC=gcc \
          KBUILD_CFLAGS="-flto=thin -Wno-missing-variable-declarations -Wno-unused-but-set-variable -Wno-error -Wno-unused-variable -Wno-unused-const-variable" \
          KBUILD_LDFLAGS="-flto=thin" \
          CC=clang \
