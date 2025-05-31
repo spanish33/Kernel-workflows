@@ -25,19 +25,13 @@ jobs:
       #codename: "zuma"
       #repo: "android_kernel_google_zuma"
 
-  #clanglto:
-    #uses: ./.github/workflows/clanglto.yml
-    #secrets: inherit
-    #with:
-      #codename: "zuma"
-      #repo: "android_kernel_google_zuma"
-
   clanglto2:
-    uses: ./.github/workflows/clanglto2.yml
+    uses: ./.github/workflows/clanglto.yml
     secrets: inherit
     with:
       codename: "zuma"
       repo: "android_kernel_google_zuma"
+
 
   #sultan-susfs:
     #uses: ./.github/workflows/sultan-susfs.yml
@@ -51,8 +45,7 @@ jobs:
     needs:
         #- gcclto
         #- gcclto2
-        #- clanglto
-        -clanglto2
+        - clanglto2
         #- sultan-susfs
 
 
