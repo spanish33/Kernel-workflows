@@ -154,8 +154,23 @@ jobs:
         run: |
           cd "${{ env.CONFIG }}"
           echo "Changing Kernel Name..."
-          sed -i 's/CONFIG_LOCALVERSION="-Sultan"/CONFIG_LOCALVERSION="Sultan-clang-lto"/' \
+          sed -i 's/CONFIG_LOCALVERSION="-Sultan"/CONFIG_LOCALVERSION="-android14-11-gd7dac4b14270-ab12946699"/' \
             ./arch/arm64/configs/${{ inputs.codename }}_defconfig
+
+      - name: Try applying LTO Config again
+        run: |
+          cd "${{ env.CONFIG }}"
+          make ARCH=arm64 O=out ${{ inputs.codename }}_defconfig
+          ./scripts/config --file out/.config \
+          -d CONFIG_LTO_GCC \
+          -d CONFIG_LTO_CLANG_FULL \
+          -d CONFIG_LTO_NONE \
+          -e CONFIG_LTO \
+          -e CONFIG_LTO_CLANG \
+          -e CONFIG_LTO_CLANG_THIN
+          make ARCH=arm64 O=out olddefconfig
+          grep CONFIG_LTO out/.config
+
 
       - name: Build defconfig
         run: |
